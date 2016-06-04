@@ -5,6 +5,9 @@ turtles-own
   symptoms-show-time   ;; number of ticks since this turtle's last virus-check
 ]
 
+globals[quantidade]
+
+
 to setup
   clear-all
   setup-nodes
@@ -21,7 +24,7 @@ to setup-nodes
   [
     ; for visual reasons, we don't put any nodes *too* close to the edges
     setxy (random-xcor * 0.95) (random-ycor * 0.95)
-    symptoms-healthy
+    become-healthy
     set symptoms-show-time random symptoms-show-max-time
   ]
 end
@@ -77,18 +80,27 @@ to become-contaminated  ;; turtle procedure
   set color blue
 end
 
-to symptoms-healthy  ;; turtle procedure
+to become-healthy  ;; turtle procedure
   set symptoms? false
   set contaminated? false
   set color green
 end
 
 to spread
-  ask turtles with [contaminated?]
+  ask turtles with [contaminated? or symptoms?]
     [ ask link-neighbors with [not symptoms? and not contaminated?]
         [ if random-float 100 < spread-chance
-            [ become-contaminated ] ] ]
+            [ become-contaminated ]
+            set symptoms-show-time random symptoms-show-max-time ] ]
 end
+;to spread
+;  ask turtles with [not contaminated? and not symptoms?][
+;    set quantidade count link-neighbors with [contaminated?] + count link-neighbors with [symptoms?] * factor
+;    if random-float count link-neighbors < quantidade
+;        [become-contaminated]
+;
+;  ]
+;end
 
 to symptoms-appear
   ask turtles with [contaminated? and symptoms-show-time = 0]
@@ -98,8 +110,8 @@ end
 to recovery-checks
   ask turtles with [symptoms?][
      if count link-neighbors with [not symptoms?] > 0[
-         if random-float 100 < spread-chance
-            [ symptoms-healthy ]
+         if random-float 100 < recovery-chance
+            [ become-healthy ]
      ]
   ]
 end
@@ -136,15 +148,15 @@ ticks
 30.0
 
 SLIDER
-27
-175
-256
-208
-spread-chance
-spread-chance
+5
+115
+516
+148
+recovery-chance
+recovery-chance
 0.0
-10.0
-9.3
+100
+5
 0.1
 1
 %
@@ -168,10 +180,10 @@ NIL
 1
 
 BUTTON
-421
-237
-516
-277
+323
+280
+418
+320
 NIL
 go
 T
@@ -205,55 +217,55 @@ PENS
 "Healthy" 1.0 0 -10899396 true "" "plot (count turtles with [not symptoms? and not contaminated?]) / (count turtles) * 100"
 
 SLIDER
-27
-70
-256
-103
+5
+10
+518
+43
 number-of-nodes
 number-of-nodes
 10
 300
-150
+300
 5
 1
 NIL
 HORIZONTAL
 
 SLIDER
-27
-210
-256
-243
+5
+150
+515
+183
 symptoms-show-max-time
 symptoms-show-max-time
 1
-100
-16
+50
+25
 1
 1
 ticks
 HORIZONTAL
 
 SLIDER
-27
-140
-256
-173
+5
+80
+517
+113
 initial-outbreak-size
 initial-outbreak-size
 1
 number-of-nodes
-10
+284
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-27
-105
-257
-138
+5
+45
+517
+78
 average-node-degree
 average-node-degree
 1
@@ -262,6 +274,36 @@ number-of-nodes - 1
 1
 1
 NIL
+HORIZONTAL
+
+SLIDER
+5
+186
+514
+219
+factor
+factor
+0
+100
+48.2
+0.1
+1
+%
+HORIZONTAL
+
+SLIDER
+5
+223
+513
+256
+spread-chance
+spread-chance
+0
+100
+3.7
+0.1
+1
+%
 HORIZONTAL
 
 @#$#@#$#@
