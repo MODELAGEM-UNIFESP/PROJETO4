@@ -30,7 +30,18 @@ to setup-nodes
 end
 
 to setup-spatially-clustered-network
+ if input = "REG"[
+ file-open "graph_REG.txt"
+ ]
+ if input = "COM"[
+ file-open "graph_COM.txt"
+ ]
+ if input = "BA"[
  file-open "graph_BA.txt"
+ ]
+ if input = "ER"[
+ file-open "graph_ER.txt"
+ ]
  ;; Read in all the data in the file
  ;; data on the line is in this order:
  ;; node-id attribute1 attribute2
@@ -47,6 +58,8 @@ to setup-spatially-clustered-network
  repeat 10
  [
    layout-spring turtles links 0.3 (world-width / (sqrt 500)) 1
+   ;layout-circle sort turtles 20
+   ;layout-radial turtles links (turtle 0)
  ]
 end
 
@@ -130,8 +143,8 @@ end
 GRAPHICS-WINDOW
 523
 11
-1335
-548
+1337
+549
 32
 20
 12.37
@@ -155,10 +168,10 @@ ticks
 30.0
 
 SLIDER
-5
-115
-516
-148
+7
+46
+518
+79
 recovery-chance
 recovery-chance
 0.0
@@ -171,9 +184,9 @@ HORIZONTAL
 
 BUTTON
 421
-280
+191
 516
-320
+236
 NIL
 setup
 NIL
@@ -188,9 +201,9 @@ NIL
 
 BUTTON
 323
-280
+191
 418
-320
+236
 NIL
 go
 T
@@ -205,7 +218,7 @@ NIL
 
 PLOT
 5
-325
+308
 516
 549
 Network Status
@@ -224,10 +237,10 @@ PENS
 "Healthy" 1.0 0 -10899396 true "" "plot (count turtles with [not symptoms? and not contaminated?]) / (count turtles) * 100"
 
 SLIDER
-5
-150
-515
-183
+7
+81
+517
+114
 symptoms-show-max-time
 symptoms-show-max-time
 1
@@ -239,10 +252,10 @@ ticks
 HORIZONTAL
 
 SLIDER
-5
-80
-517
-113
+7
+11
+519
+44
 initial-outbreak-size
 initial-outbreak-size
 1
@@ -254,10 +267,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-5
-186
-514
-219
+7
+117
+516
+150
 factor
 factor
 0
@@ -269,10 +282,10 @@ factor
 HORIZONTAL
 
 SLIDER
-5
-223
-513
-256
+7
+154
+515
+187
 spread-chance
 spread-chance
 0
@@ -282,6 +295,16 @@ spread-chance
 1
 %
 HORIZONTAL
+
+CHOOSER
+181
+191
+319
+236
+input
+input
+"REG" "COM" "BA" "ER"
+0
 
 @#$#@#$#@
 ## WHAT IS IT?
