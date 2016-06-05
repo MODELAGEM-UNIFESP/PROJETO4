@@ -20,7 +20,7 @@ end
 
 to setup-nodes
   set-default-shape turtles "circle"
-  create-turtles number-of-nodes
+  create-turtles 501
   [
     ; for visual reasons, we don't put any nodes *too* close to the edges
     setxy (random-xcor * 0.95) (random-ycor * 0.95)
@@ -30,21 +30,24 @@ to setup-nodes
 end
 
 to setup-spatially-clustered-network
-  let num-links (average-node-degree * number-of-nodes) / 2
-  while [count links < num-links ]
-  [
-    ask one-of turtles
-    [
-      let choice (min-one-of (other turtles with [not link-neighbor? myself])
-                   [distance myself])
-      if choice != nobody [ create-link-with choice ]
-    ]
-  ]
-  ; make the network look a little prettier
-  repeat 10
-  [
-    layout-spring turtles links 0.3 (world-width / (sqrt number-of-nodes)) 1
-  ]
+ file-open "graph_BA.txt"
+ ;; Read in all the data in the file
+ ;; data on the line is in this order:
+ ;; node-id attribute1 attribute2
+ while [not file-at-end?]
+ [
+   ;; this reads a single line into a three-item list
+   let items read-from-string (word "[" file-read-line "]")
+   ask get-node (item 0 items)[
+     create-link-with get-node (item 1 items)
+   ]
+ ]
+ file-close
+ ; make the network look a little prettier
+ repeat 10
+ [
+   layout-spring turtles links 0.3 (world-width / (sqrt 500)) 1
+ ]
 end
 
 to go
@@ -116,20 +119,24 @@ to recovery-checks
   ]
 end
 
+to-report get-node [id]
+  report turtle (id + 1)
+end
+
 
 ; Copyright 2008 Uri Wilensky.
 ; See Info tab for full copyright and license.
 @#$#@#$#@
 GRAPHICS-WINDOW
 523
+11
+1335
+548
+32
+20
+12.37
+1
 10
-984
-492
-20
-20
-11.0
-1
-10
 1
 1
 1
@@ -137,8 +144,8 @@ GRAPHICS-WINDOW
 0
 0
 1
--20
-20
+-32
+32
 -20
 20
 1
@@ -156,7 +163,7 @@ recovery-chance
 recovery-chance
 0.0
 100
-5
+10.3
 0.1
 1
 %
@@ -218,21 +225,6 @@ PENS
 
 SLIDER
 5
-10
-518
-43
-number-of-nodes
-number-of-nodes
-10
-300
-300
-5
-1
-NIL
-HORIZONTAL
-
-SLIDER
-5
 150
 515
 183
@@ -240,7 +232,7 @@ symptoms-show-max-time
 symptoms-show-max-time
 1
 50
-25
+15
 1
 1
 ticks
@@ -254,23 +246,8 @@ SLIDER
 initial-outbreak-size
 initial-outbreak-size
 1
-number-of-nodes
-284
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-5
-45
-517
-78
-average-node-degree
-average-node-degree
-1
-number-of-nodes - 1
-6
+500
+251
 1
 1
 NIL
@@ -300,7 +277,7 @@ spread-chance
 spread-chance
 0
 100
-3.7
+10.8
 0.1
 1
 %
