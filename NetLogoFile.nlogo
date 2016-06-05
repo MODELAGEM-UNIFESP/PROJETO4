@@ -103,20 +103,13 @@ to become-healthy  ;; turtle procedure
 end
 
 to spread
-  ask turtles with [contaminated? or symptoms?]
-    [ ask link-neighbors with [not symptoms? and not contaminated?]
-        [ if random-float 100 < spread-chance
-            [ become-contaminated ]
-            set symptoms-show-time random symptoms-show-max-time ] ]
+  ask turtles with [not contaminated? and not symptoms?][
+    set quantidade count link-neighbors with [contaminated?] + count link-neighbors with [symptoms?] * factor
+    if random-float count link-neighbors < quantidade
+        [become-contaminated]
+
+  ]
 end
-;to spread
-;  ask turtles with [not contaminated? and not symptoms?][
-;    set quantidade count link-neighbors with [contaminated?] + count link-neighbors with [symptoms?] * factor
-;    if random-float count link-neighbors < quantidade
-;        [become-contaminated]
-;
-;  ]
-;end
 
 to symptoms-appear
   ask turtles with [contaminated? and symptoms-show-time = 0]
@@ -125,10 +118,8 @@ end
 
 to recovery-checks
   ask turtles with [symptoms?][
-     if count link-neighbors with [not symptoms?] > 0[
-         if random-float 100 < recovery-chance
+     if random-float 100 < recovery-chance
             [ become-healthy ]
-     ]
   ]
 end
 
@@ -176,17 +167,17 @@ recovery-chance
 recovery-chance
 0.0
 100
-10.3
+35.5
 0.1
 1
 %
 HORIZONTAL
 
 BUTTON
-421
-191
-516
-236
+422
+118
+517
+163
 NIL
 setup
 NIL
@@ -200,10 +191,10 @@ NIL
 1
 
 BUTTON
-323
-191
-418
-236
+324
+118
+419
+163
 NIL
 go
 T
@@ -217,9 +208,9 @@ NIL
 0
 
 PLOT
-5
+6
 308
-516
+517
 549
 Network Status
 time
@@ -245,7 +236,7 @@ symptoms-show-max-time
 symptoms-show-max-time
 1
 50
-15
+4
 1
 1
 ticks
@@ -260,51 +251,36 @@ initial-outbreak-size
 initial-outbreak-size
 1
 500
-251
+367
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-7
-117
+422
+167
 516
-150
+200
 factor
 factor
 0
-100
-48.2
-0.1
 1
-%
-HORIZONTAL
-
-SLIDER
-7
-154
-515
-187
-spread-chance
-spread-chance
-0
-100
-10.8
-0.1
 1
-%
+1
+1
+NIL
 HORIZONTAL
 
 CHOOSER
-181
-191
-319
-236
+182
+118
+320
+163
 input
 input
 "REG" "COM" "BA" "ER"
-0
+2
 
 @#$#@#$#@
 ## WHAT IS IT?
