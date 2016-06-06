@@ -27,6 +27,8 @@ to setup-nodes
     become-healthy
     set symptoms-show-time random symptoms-show-max-time
   ]
+  ask turtles [set size 0.75]
+  ask turtle 0 [die]
 end
 
 to setup-spatially-clustered-network
@@ -167,7 +169,7 @@ recovery-chance
 recovery-chance
 0.0
 100
-35.5
+0.4
 0.1
 1
 %
@@ -236,7 +238,7 @@ symptoms-show-max-time
 symptoms-show-max-time
 1
 50
-4
+17
 1
 1
 ticks
@@ -251,7 +253,7 @@ initial-outbreak-size
 initial-outbreak-size
 1
 500
-367
+482
 1
 1
 NIL
@@ -266,7 +268,7 @@ factor
 factor
 0
 1
-1
+0
 1
 1
 NIL
@@ -280,7 +282,7 @@ CHOOSER
 input
 input
 "REG" "COM" "BA" "ER"
-2
+0
 
 @#$#@#$#@
 ## WHAT IS IT?
