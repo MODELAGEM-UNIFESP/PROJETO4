@@ -59,9 +59,18 @@ to setup-spatially-clustered-network
  ; make the network look a little prettier
  repeat 10
  [
-   layout-spring turtles links 0.3 (world-width / (sqrt 500)) 1
-   ;layout-circle sort turtles 20
-   ;layout-radial turtles links (turtle 0)
+   if input = "BA"[
+     layout-radial turtles links (turtle 1)
+   ]
+   if input = "COM" [
+     layout-spring turtles links 0.3 (world-width / (sqrt 500)) 1
+   ]
+   if input = "REG" [
+     layout-circle sort turtles 20
+   ]
+    if input = "ER" [
+     layout-spring turtles links 0.3 (world-width / (sqrt 500)) 1
+   ]
  ]
 end
 
@@ -134,13 +143,13 @@ end
 ; See Info tab for full copyright and license.
 @#$#@#$#@
 GRAPHICS-WINDOW
-523
-11
-1337
 549
-32
-20
-12.37
+17
+1288
+507
+40
+25
+9.0
 1
 10
 1
@@ -150,10 +159,10 @@ GRAPHICS-WINDOW
 0
 0
 1
--32
-32
--20
-20
+-40
+40
+-25
+25
 1
 1
 1
@@ -238,7 +247,7 @@ symptoms-show-max-time
 symptoms-show-max-time
 1
 50
-17
+18
 1
 1
 ticks
@@ -282,7 +291,7 @@ CHOOSER
 input
 input
 "REG" "COM" "BA" "ER"
-0
+2
 
 @#$#@#$#@
 ## WHAT IS IT?
