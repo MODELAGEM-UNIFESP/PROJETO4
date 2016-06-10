@@ -13,12 +13,19 @@ to setup
   setup-nodes
   setup-spatially-clustered-network
 
-;  ask n-of initial-outbreak-size turtles
-;    [ become-contaminated ]
+  if contamination = "RANDOM"
+  [ask n-of nturtles-to-become-contaminated turtles
+    [ become-contaminated ]]
 
-  ;; Função que torna n turtles com m links contaminado:
-  ask n-of get-nturtles(nturtles-to-became-contaminated) get-turtles-with-nlinks(nlinks-of-turtles-above)
-    [ become-contaminated ]
+  if contamination = "GUIDED"
+  [
+    ;; Função que torna n turtles com m links contaminado:
+    ask n-of get-nturtles(nturtles-to-become-contaminated) get-turtles-with-nlinks(nlinks-of-turtles-above)
+    [ become-contaminated ]]
+
+
+
+
 
   ask links [ set color white ]
   reset-ticks
@@ -185,10 +192,10 @@ ticks
 30.0
 
 SLIDER
-7
-46
-518
-79
+5
+17
+543
+50
 recovery-chance
 recovery-chance
 0.0
@@ -200,10 +207,10 @@ recovery-chance
 HORIZONTAL
 
 BUTTON
-422
-118
-517
-163
+447
+87
+542
+132
 NIL
 setup
 NIL
@@ -217,10 +224,10 @@ NIL
 1
 
 BUTTON
-324
-118
-419
-163
+349
+87
+444
+132
 NIL
 go
 T
@@ -236,7 +243,7 @@ NIL
 PLOT
 6
 308
-517
+541
 549
 Network Status
 time
@@ -254,10 +261,10 @@ PENS
 "Healthy" 1.0 0 -10899396 true "" "plot (count turtles with [not symptoms? and not contaminated?]) / (count turtles) * 100"
 
 SLIDER
-7
-81
-517
-114
+5
+52
+542
+85
 symptoms-show-max-time
 symptoms-show-max-time
 1
@@ -269,25 +276,10 @@ ticks
 HORIZONTAL
 
 SLIDER
-7
-11
-519
-44
-initial-outbreak-size
-initial-outbreak-size
-1
-500
-8
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-422
+447
+134
+542
 167
-516
-200
 factor
 factor
 0
@@ -299,44 +291,54 @@ NIL
 HORIZONTAL
 
 CHOOSER
-182
-118
-320
-163
+207
+87
+345
+132
 input
 input
 "REG" "COM" "BA" "ER"
 2
 
 SLIDER
-12
-177
-372
-210
-nturtles-to-became-contaminated
-nturtles-to-became-contaminated
+5
+134
+445
+167
+nturtles-to-become-contaminated
+nturtles-to-become-contaminated
 0
 500
-51
+4
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-12
-215
-184
-248
+5
+169
+177
+202
 nlinks-of-turtles-above
 nlinks-of-turtles-above
 0
 30
-5
+22
 1
 1
 NIL
 HORIZONTAL
+
+CHOOSER
+67
+87
+205
+132
+contamination
+contamination
+"RANDOM" "GUIDED"
+0
 
 @#$#@#$#@
 ## WHAT IS IT?
