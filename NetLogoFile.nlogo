@@ -60,7 +60,7 @@ to setup-spatially-clustered-network
  repeat 10
  [
    if input = "BA"[
-     layout-radial turtles links (turtle 1)
+     layout-radial turtles links turtle 2
    ]
    if input = "COM" [
      layout-spring turtles links 0.3 (world-width / (sqrt 500)) 1
@@ -178,7 +178,7 @@ recovery-chance
 recovery-chance
 0.0
 100
-0.4
+27.2
 0.1
 1
 %
@@ -247,7 +247,7 @@ symptoms-show-max-time
 symptoms-show-max-time
 1
 50
-18
+6
 1
 1
 ticks
@@ -262,7 +262,7 @@ initial-outbreak-size
 initial-outbreak-size
 1
 500
-482
+8
 1
 1
 NIL
@@ -277,7 +277,7 @@ factor
 factor
 0
 1
-0
+1
 1
 1
 NIL
