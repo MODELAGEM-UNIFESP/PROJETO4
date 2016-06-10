@@ -12,8 +12,14 @@ to setup
   clear-all
   setup-nodes
   setup-spatially-clustered-network
-  ask n-of initial-outbreak-size turtles
+
+;  ask n-of initial-outbreak-size turtles
+;    [ become-contaminated ]
+
+  ;; Função que torna n turtles com m links contaminado:
+  ask n-of get-nturtles(nturtles-to-became-contaminated) get-turtles-with-nlinks(nlinks-of-turtles-above)
     [ become-contaminated ]
+
   ask links [ set color white ]
   reset-ticks
 end
@@ -138,7 +144,16 @@ to-report get-node [id]
   report turtle (id + 1)
 end
 
+to-report get-turtles-with-nlinks [n]
+  report turtles with [(count link-neighbors) >= n]
+end
 
+to-report get-nturtles [nt]
+  let var-aux count get-turtles-with-nlinks(nlinks-of-turtles-above)
+  ifelse var-aux > nt
+     [report nt]
+     [report var-aux]
+end
 ; Copyright 2008 Uri Wilensky.
 ; See Info tab for full copyright and license.
 @#$#@#$#@
@@ -292,6 +307,36 @@ input
 input
 "REG" "COM" "BA" "ER"
 2
+
+SLIDER
+12
+177
+372
+210
+nturtles-to-became-contaminated
+nturtles-to-became-contaminated
+0
+500
+51
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+12
+215
+184
+248
+nlinks-of-turtles-above
+nlinks-of-turtles-above
+0
+30
+5
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
