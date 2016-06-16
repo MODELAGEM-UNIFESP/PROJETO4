@@ -14,6 +14,12 @@ globals[
   min-symptoms
   max-nosymptoms
   min-nosymptoms
+  somaH
+  somaN
+  somaS
+  media-healthy
+  media-symptoms
+  media-nosymptoms
 ]
 
 
@@ -25,6 +31,9 @@ to setup
   set min-healthy 1000
   set min-symptoms 1000
   set min-nosymptoms 1000
+  set somaH 0
+  set somaS 0
+  set somaN 0
   setup-nodes
   setup-spatially-clustered-network
 
@@ -141,7 +150,14 @@ to go
     if aux3 < min-healthy[
       set min-healthy aux3
     ]
+    set somaH somaH + (count turtles with [contaminated?])
+    set media-healthy somaH / (ticks - 100)
+    set somaS somaS + (count turtles with [symptoms?])
+    set media-symptoms somaS / (ticks - 100)
+    set somaN somaN + (count turtles with [not symptoms? and not contaminated?])
+    set media-nosymptoms somaN / (ticks - 100)
   ]
+
   ;;
   tick
 end
@@ -442,6 +458,39 @@ MONITOR
 303
 NIL
 min-nosymptoms
+17
+1
+11
+
+MONITOR
+316
+211
+408
+256
+NIL
+media-healthy
+17
+1
+11
+
+MONITOR
+414
+210
+519
+255
+NIL
+media-symptoms
+17
+1
+11
+
+MONITOR
+351
+260
+470
+305
+NIL
+media-nosymptoms
 17
 1
 11
