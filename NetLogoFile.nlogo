@@ -264,9 +264,9 @@ HORIZONTAL
 
 BUTTON
 447
-87
+86
 542
-132
+131
 NIL
 setup
 NIL
@@ -280,10 +280,10 @@ NIL
 1
 
 BUTTON
-349
-87
-444
-132
+350
+86
+445
+131
 NIL
 go
 T
@@ -332,10 +332,10 @@ ticks
 HORIZONTAL
 
 SLIDER
-447
-134
-542
-167
+180
+169
+275
+202
 factor
 factor
 0
@@ -347,9 +347,9 @@ NIL
 HORIZONTAL
 
 CHOOSER
-207
+146
 87
-345
+284
 132
 input
 input
@@ -359,7 +359,7 @@ input
 SLIDER
 5
 134
-445
+422
 167
 nturtles-to-become-contaminated
 nturtles-to-become-contaminated
@@ -387,9 +387,9 @@ NIL
 HORIZONTAL
 
 CHOOSER
-67
+5
 87
-205
+143
 132
 contamination
 contamination
@@ -410,9 +410,9 @@ precision max-healthy 5
 MONITOR
 6
 255
-146
+97
 300
-NIL
+min-healthy
 precision min-healthy 5
 17
 1
@@ -430,11 +430,11 @@ precision max-symptoms 5
 11
 
 MONITOR
-100
+102
 255
-254
+217
 300
-NIL
+min-symptoms
 precision min-symptoms 8
 17
 1
@@ -454,9 +454,9 @@ precision max-nosymptoms 5
 MONITOR
 221
 255
-388
+353
 300
-NIL
+min-nosymptoms
 precision min-nosymptoms 5
 17
 1
@@ -465,7 +465,7 @@ precision min-nosymptoms 5
 MONITOR
 426
 213
-531
+544
 258
 media-healthy
 round media-healthy
@@ -476,7 +476,7 @@ round media-healthy
 MONITOR
 426
 167
-531
+543
 212
 media-symptoms
 round media-symptoms
