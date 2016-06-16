@@ -3,13 +3,28 @@ turtles-own
   contaminated?           ;; if true, the turtle is infectious
   symptoms?          ;; if true, the turtle can't be infected
   symptoms-show-time   ;; number of ticks since this turtle's last virus-check
+
 ]
 
-globals[quantidade]
+globals[
+  quantidade
+  max-healthy
+  min-healthy
+  max-symptoms
+  min-symptoms
+  max-nosymptoms
+  min-nosymptoms
+]
 
 
 to setup
   clear-all
+  set max-healthy -1000
+  set max-symptoms -1000
+  set max-nosymptoms -1000
+  set min-healthy 1000
+  set min-symptoms 1000
+  set min-nosymptoms 1000
   setup-nodes
   setup-spatially-clustered-network
 
@@ -103,6 +118,31 @@ to go
   spread
   symptoms-appear
   recovery-checks
+  ;;
+  let aux1 (count turtles with [contaminated?]) / (count turtles) * 100
+  let aux2 (count turtles with [symptoms?]) / (count turtles) * 100
+  let aux3 (count turtles with [not symptoms? and not contaminated?]) / (count turtles) * 100
+  if ticks > 100[
+    if aux1 > max-nosymptoms[
+      set max-nosymptoms aux1
+    ]
+    if aux2 > max-symptoms[
+      set max-symptoms aux2
+    ]
+    if aux3 > max-healthy[
+      set max-healthy aux3
+    ]
+    if aux1 < min-nosymptoms[
+      set min-nosymptoms aux1
+    ]
+    if aux2 < min-symptoms[
+      set min-symptoms aux2
+    ]
+    if aux3 < min-healthy[
+      set min-healthy aux3
+    ]
+  ]
+  ;;
   tick
 end
 
@@ -338,7 +378,73 @@ CHOOSER
 contamination
 contamination
 "RANDOM" "GUIDED"
-0
+1
+
+MONITOR
+6
+209
+88
+254
+max-healthy
+max-healthy
+17
+1
+11
+
+MONITOR
+7
+257
+88
+302
+NIL
+min-healthy
+17
+1
+11
+
+MONITOR
+94
+210
+186
+255
+NIL
+max-symptoms
+17
+1
+11
+
+MONITOR
+94
+257
+186
+302
+NIL
+min-symptoms
+17
+1
+11
+
+MONITOR
+194
+210
+300
+255
+NIL
+max-nosymptoms
+17
+1
+11
+
+MONITOR
+195
+258
+300
+303
+NIL
+min-nosymptoms
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
