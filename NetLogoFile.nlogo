@@ -5,7 +5,10 @@ turtles-own
   symptoms-show-time   ;; number of ticks since this turtle's last virus-check
 
 ]
-
+links-own[
+  distancia
+  ]
+ 
 globals[
   quantidade
   max-healthy
@@ -47,10 +50,6 @@ to setup
     ask n-of get-nturtles(nturtles-to-become-contaminated) get-turtles-with-nlinks(nlinks-of-turtles-above)
     [ become-contaminated ]]
 
-
-
-
-
   ask links [ set color white ]
   reset-ticks
 end
@@ -86,6 +85,7 @@ to setup-spatially-clustered-network
  ;; node-id attribute1 attribute2
  while [not file-at-end?]
  [
+   let i 1
    ;; this reads a single line into a three-item list
    let items read-from-string (word "[" file-read-line "]")
    ask get-node (item 0 items)[
@@ -221,13 +221,13 @@ end
 ; See Info tab for full copyright and license.
 @#$#@#$#@
 GRAPHICS-WINDOW
-549
-17
-1288
-507
+552
+10
+1380
+556
 40
 25
-9.0
+10.1
 1
 10
 1
@@ -249,14 +249,14 @@ ticks
 
 SLIDER
 5
-17
+10
 543
-50
+43
 recovery-chance
 recovery-chance
 0.0
 100
-27.2
+12.4
 0.1
 1
 %
@@ -264,9 +264,9 @@ HORIZONTAL
 
 BUTTON
 447
-86
+79
 542
-131
+124
 NIL
 setup
 NIL
@@ -281,9 +281,9 @@ NIL
 
 BUTTON
 350
-86
+79
 445
-131
+124
 NIL
 go
 T
@@ -298,9 +298,9 @@ NIL
 
 PLOT
 6
-308
-541
-549
+298
+544
+557
 Network Status
 time
 % of nodes
@@ -318,24 +318,24 @@ PENS
 
 SLIDER
 5
-52
+45
 542
-85
+78
 symptoms-show-max-time
 symptoms-show-max-time
 1
-50
-6
+10
+3
 1
 1
 ticks
 HORIZONTAL
 
 SLIDER
-180
-169
-275
-202
+189
+164
+284
+197
 factor
 factor
 0
@@ -348,24 +348,24 @@ HORIZONTAL
 
 CHOOSER
 146
-87
+80
 284
-132
+125
 input
 input
 "REG" "COM" "BA" "ER"
-2
+1
 
 SLIDER
 5
-134
-422
-167
+128
+284
+161
 nturtles-to-become-contaminated
 nturtles-to-become-contaminated
 0
 500
-4
+1
 1
 1
 NIL
@@ -373,14 +373,14 @@ HORIZONTAL
 
 SLIDER
 5
-169
-177
-202
+164
+186
+197
 nlinks-of-turtles-above
 nlinks-of-turtles-above
 0
 30
-22
+3
 1
 1
 NIL
@@ -388,19 +388,19 @@ HORIZONTAL
 
 CHOOSER
 5
-87
+80
 143
-132
+125
 contamination
 contamination
 "RANDOM" "GUIDED"
-1
+0
 
 MONITOR
 5
-207
+200
 97
-252
+245
 max-healthy (%)
 precision max-healthy 5
 17
@@ -409,9 +409,9 @@ precision max-healthy 5
 
 MONITOR
 6
-255
+248
 97
-300
+293
 min-healthy
 precision min-healthy 5
 17
@@ -419,10 +419,10 @@ precision min-healthy 5
 11
 
 MONITOR
-100
-207
-218
-252
+101
+200
+219
+245
 max-symptoms(%)
 precision max-symptoms 5
 17
@@ -430,10 +430,10 @@ precision max-symptoms 5
 11
 
 MONITOR
-102
-255
-217
-300
+101
+248
+218
+293
 min-symptoms
 precision min-symptoms 8
 17
@@ -441,10 +441,10 @@ precision min-symptoms 8
 11
 
 MONITOR
-221
-207
-353
-252
+222
+200
+354
+245
 max-nosymptoms(%)
 precision max-nosymptoms 5
 17
@@ -452,10 +452,10 @@ precision max-nosymptoms 5
 11
 
 MONITOR
-221
-255
-353
-300
+222
+248
+354
+293
 min-nosymptoms
 precision min-nosymptoms 5
 17
@@ -463,10 +463,10 @@ precision min-nosymptoms 5
 11
 
 MONITOR
-426
-213
-544
-258
+428
+203
+545
+248
 media-healthy
 round media-healthy
 17
@@ -474,10 +474,10 @@ round media-healthy
 11
 
 MONITOR
-426
-167
-543
-212
+428
+157
+545
+202
 media-symptoms
 round media-symptoms
 17
@@ -485,10 +485,10 @@ round media-symptoms
 11
 
 MONITOR
-426
-260
+428
+250
 545
-305
+295
 media-nosymptoms
 round media-nosymptoms
 17
@@ -860,7 +860,7 @@ Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 
 @#$#@#$#@
-NetLogo 5.3.1
+NetLogo 5.1.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
