@@ -7,8 +7,7 @@
 \newcommand{\notimplies}{%
   \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
 \usepackage{fullpage}
-\usepackage{oz}
-\usepackage[top = 2cm, bottom =2cm]{geometry}
+
 \usepackage[hyperfootnotes=false]{hyperref}
 \usepackage{url}
 \usepackage{graphicx}
@@ -36,7 +35,7 @@ Fernando Bandeira Soares (86281)
 
 
 \section{Objetivo}
-O objetivo deste projeto é modelar uma rede de indivíduos em NetLogo e estudar a transmissão de uma doença que não necessariamente apresenta sintomas de forma imediata, como a gripe.
+O objetivo deste projeto é modelar uma rede de indivíduos em NetLogo e estudar a transmissão de uma doença que não necessariamente apresenta sintomas de forma imediata, como o resfriado.
 
 \section{Construção do modelo}
 O sistema estudado possui 500 neurônios (que representam individuos de uma certa espécie) que possuem links entre si de acordo com as seguintes topologias:
@@ -54,21 +53,180 @@ Além disso, cada indivíduo pode assumir três estados:
 \item Saudável (associado à cor verde): é um estado atingido por indivíduos que estão contaminados e com sintomas, de acordo com uma probabilidade pré-definida (variável \textit{recovery-chance}).
 \item Contaminado sem sintomas (associado à cor azul): é um estado atingido por indivíduos saudáveis, de acordo com a probabilidade $P(i)=\sum_{j \in N(i)} s(j)$, em que $N(i)$ é a vizinhança de $i$, $s(j) = 1$ se o indivíduo $j$ está contaminado e sem sintomas, $s(j)=factor$ (onde \textit{factor} é uma variável determinada pelo usuário, valendo $0$ ou $1$) se o indíviduo está contaminado com sintomas e $s(j)=0$ caso o indivíduo $j$ esteja saudável.
 \item Contaminado com sintomas (associado à cor vermelha): é um estado atingido por indivíduos que estão contaminados e sem sintomas após no máximo \textit{symptoms-show-max-time} ticks, onde esta variável é determinada pelo usuário.
-\end{itemize}
+\end{itemize}.
 
-
-
+Foi convencionado que cada tick equivale a um dia. Também consideramos que a variável \textit{recovery-chance} assume o valor $12.4 \%$, pressupondo que o tempo médio em que a gripe é curada é de 8 dias, e consideramos que a variável \textit{symptoms-show-max-time} assume o valor 3.
 
 
 \section{Resultados}
 \subsection{Consenso}
-Pelo fato de que indivíduos contaminados e com sintomas possuem uma probabilidade constante de se tornarem saudáveis, o sistema apenas se torna homogêneo (todos os indivíduos se encontram no mesmo estado) em uma situação extrema, quando $\textit{recovery-chance} \approx 0$.
+Pelo fato de que indivíduos contaminados e com sintomas possuem uma probabilidade constante de se tornarem saudáveis, o sistema não torna-se homogêneo (mesmo que o número inicial de contaminados seja altíssimo). Também não foi notada relação significativa entre o tempo para o equilíbrio de uma rede e sua topologia.
 
-\subsection{Tempo de Convergência}
+Na Figura 1 temos uma rede regular com todos os indivíduos inicialmente contaminados:
 
-\subsection{Número Inicial Mínimo de Contaminados Para o Espalhamento da Doença}
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{REG_consenso.png}}
+  \caption{Rede regular.}
+  \label{fig:boat1}
+\end{figure}
 
-\subsection{Escolha dos Vértices}
+Na Figura 2 temos uma rede modularizada com todos os indivíduos inicialmente contaminados:
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{COM_consenso.png}}
+  \caption{Rede modularizada.}
+  \label{fig:boat1}
+\end{figure}
+
+Na Figura 3 temos uma rede livre de escala com todos os indivíduos inicialmente contaminados:
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{BA_consenso.png}}
+  \caption{Rede livre de escala.}
+  \label{fig:boat1}
+\end{figure}
+
+Na Figura 4 temos uma rede aleatória com todos os indivíduos inicialmente contaminados:
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{ER_consenso.png}}
+  \caption{Rede aleatória.}
+  \label{fig:boat1}
+\end{figure}
+
+No que diz respeito ao tempo levado para o sistema atingir o equilíbrio, concluímos que:
+
+\begin{itemize}
+	\item Quanto maior o número inicial de indivíduos infectados, menos tempo 		leva para a rede alcançar o estado de equilíbrio. Todavia, a partir de 50 		vértices inicialmente contaminados não foi notada variação significativa no 		número médio de ticks necessários para o equilíbrio da rede;
+	\item A seleção guiada minimiza o tempo necessário para a rede entrar em 			equilíbrio.
+\end{itemize}
+
+\subsection{Consenso na Rede Regular}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{REG_TEMP-CONVERG_N-1.png}}
+  \caption{Rede regular com 1 indivíduo inicialmente contaminado.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{REG_TEMP-CONVERG_N-10.png}}
+  \caption{Rede regular com 10 indivíduos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{REG_TEMP-CONVERG_N-50.png}}
+  \caption{Rede regular com 50 indivíduos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\subsection{Consenso na Rede Modularizada}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{COM_TEMP-CONVERG_N-1.png}}
+  \caption{Rede modularizada com 1 indivíduo inicialmente contaminado.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{COM_TEMP-CONVERG_N-10.png}}
+  \caption{Rede modularizada com 10 indivíduos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{COM_TEMP-CONVERG_N-50.png}}
+  \caption{Rede modularizada com 50 indivíduos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\subsection{Consenso na Rede Livre de Escala}
+
+\subsubsection{Seleção Aleatória dos Vértices Contaminados Iniciais}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{BA_TEMP-CONVERG_N-1_RANDOM.png}}
+  \caption{Rede livre de escala com 1 indivíduo aleatório inicialmente contaminado.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{BA_TEMP-CONVERG_N-10_RANDOM.png}}
+  \caption{Rede livre de escala com 10 indivíduos aleatórios inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{BA_TEMP-CONVERG_N-50_RANDOM.png}}
+  \caption{Rede livre de escala com 50 indivíduos aleatórios inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\subsubsection{Seleção Guiada dos Vértices Contaminados Iniciais}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{BA_TEMP-CONVERG_N-1_GUIDED.png}}
+  \caption{Rede livre de escala com 1 indivíduo específico inicialmente contaminado.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{BA_TEMP-CONVERG_N-10_GUIDED.png}}
+  \caption{Rede livre de escala com 10 indivíduos específicos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{BA_TEMP-CONVERG_N-50_GUIDED.png}}
+  \caption{Rede livre de escala com 50 indivíduos específicos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\subsection{Consenso na Rede Aleatória}
+
+\subsubsection{Seleção Aleatória dos Vértices Contaminados Iniciais}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{ER_TEMP-CONVERG_N-1_RANDOM.png}}
+  \caption{Rede aleatória com 1 indivíduo aleatório inicialmente contaminado.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]livre de escala
+  \centerline{\includegraphics[width=\linewidth]{ER_TEMP-CONVERG_N-10_RANDOM.png}}
+  \caption{Rede aleatória com 10 indivíduos aleatórios inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{ER_TEMP-CONVERG_N-50_RANDOM.png}}
+  \caption{Rede aleatória com 50 indivíduos aleatórios inicialmente contaminados.}livre de escala
+  \label{fig:boat1}
+\end{figure}
+
+\subsubsection{Seleção Guiada dos Vértices Contaminados Iniciais}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{ER_TEMP-CONVERG_N-1_GUIDED.png}}
+  \caption{Rede aleatória com 1 indivíduo específico inicialmente contaminado.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{ER_TEMP-CONVERG_N-10_GUIDED.png}}
+  \caption{Rede aleatória com 10 indivíduos específicos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+\begin{figure}[H]
+  \centerline{\includegraphics[width=\linewidth]{ER_TEMP-CONVERG_N-50_GUIDED.png}}
+  \caption{Rede aleatória com 50 indivíduos específicos inicialmente contaminados.}
+  \label{fig:boat1}
+\end{figure}
+
+
+
 
 
 %\begin{figure}[H]
